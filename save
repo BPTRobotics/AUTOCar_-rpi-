@@ -1,0 +1,4 @@
+git add . -- ':!old' ':!.venv' ':!real_coral'
+git commit -m 'autosave'
+git branch -M main
+git push
