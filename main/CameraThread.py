@@ -8,10 +8,10 @@ from FPSCounter import FPSCounter
 
 from Detectors.ColorDetector import ColorDetector
 
-HEADLESS = False
+HEADLESS = True
 if HEADLESS:
     cv2.imshow = lambda *args: None
-    cv2.putText = lambda *args: print(args[1])
+    cv2.putText = lambda *args: None#print(args[1])
     cv2.circle = lambda *args: None
     cv2.rectangle = lambda *args: None
 
@@ -97,6 +97,7 @@ class DecisionMaker:
                 cv2.circle(frame, (center[0], center[1]), 5, color, -1)
                 cv2.rectangle(frame,(center[0],0),(0 if self.NearestID==RED_ID else frame.shape[1],frame.shape[0]),color,1)
             else:
+                self.NearestID = 0
                 self.angle = CENTER_ANGLE_OFFSET
                 cv2.putText(frame, NO_DETECTION_TEXT, (0, 30), cv2.FONT_HERSHEY_SIMPLEX, .5, YELLOW_COLOR, 3)
             

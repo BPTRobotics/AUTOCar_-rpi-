@@ -9,10 +9,13 @@ def main():
         print('Color: ({0}, {1}, {2})'.format(*sensor.color_rgb_bytes))
         print('Temperature: {0}K'.format(sensor.color_temperature))
         print('Lux: {0}'.format(sensor.lux))
-        exit()
+        print('\n')
     except ValueError as e:
         print("error","retrying")
         sleep(.5)
         main()
 
-main()
+while True:
+    main()
+    sleep(.1)
+

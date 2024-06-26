@@ -16,31 +16,31 @@ class UltrasonicDirectionDecider:
         self.speedMultiplier = 1
 
     def getDirection(self) -> (int, int):
-        self.isBack = False
-        # Check if any sensor detects an object closer than 10 cm
-        for sensor in self.sensors:
-            if sensor.distance < 0.07:
-                self.isBack = True
-                break
 
         # Determine which sensor detects the furthest distance
         max_sensor = max(self.sensors, key=lambda sensor: sensor.distance)
-        self.speedMultiplier = max_sensor.distance
+        min_sensor = min(self.sensors, key=lambda sensor: sensor.distance)
+        self.speedMultiplier = min_sensor.distance
         x,y=0,1
+        if min_sensor.distance < .1:
+            if min_sensor == self.left_sensor:
+                x = -1
+            elif min_sensor == self.middle_sensor:
+                x = 0
+            elif min_sensor == self.right_sensor:
+                x = 1
+            y = -1
+        else:
+            if max_sensor == self.left_sensor:
+                x = -1
+            elif max_sensor == self.middle_sensor:
+                x = 0
+            elif max_sensor == self.right_sensor:
+                x = 1
 
-        if max_sensor == self.left_sensor:
-            x = 1
-        elif max_sensor == self.middle_sensor:
-            x = 0
-        elif max_sensor == self.right_sensor:
-            x = -1
-
-        if self.middle_sensor != max_sensor and (max_sensor.distance - self.middle_sensor.distance) > 0.5:
+        if self.middle_sensor != max_sensor and (max_sensor.distance - self.middle_sensor.distance) > 0.3:
             x*=2
         
-        if self.isBack:
-            x *= -1
-            y *= -1
         #elif self.middle_sensor.distance == 1:
         #    x,y=0,1
         return x,y

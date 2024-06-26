@@ -32,10 +32,10 @@ class SteeringWheel:
     def Steer_duty(self,duty):
         #if duty>12 or duty<0:
         #    raise Exception(f"DUTY CANT BE GREATER THAT 12, nor less than 0. DUTY: {duty}")
-        pass#print(duty)#self.servo1.ChangeDutyCycle(duty)
+        self.servo1.ChangeDutyCycle(duty)
 
     def Steer(self,degrees,lock=True):
-        print("Steer:",degrees)
+        #print("Steer:",degrees)
         if degrees==self.Direction: return
         if lock:
             if degrees > self.MAX_degree: degrees = self.MAX_degree
@@ -64,13 +64,13 @@ class Motor:
         # Setup PWM
         self.p = GPIO.PWM(self.en, 1000)
         self.p.start(self.__Speed)
-        self.SetSpeed(0)#starting_speed)
+        self.SetSpeed(starting_speed)
 
 
-    def forward(self):
+    def backward(self):
         GPIO.output(self.in1, GPIO.HIGH)
         GPIO.output(self.in2, GPIO.LOW)
-    def backward(self):
+    def forward(self):
         GPIO.output(self.in1, GPIO.LOW)
         GPIO.output(self.in2, GPIO.HIGH)
     def stop(self):
@@ -78,6 +78,7 @@ class Motor:
         GPIO.output(self.in2, GPIO.LOW)
 
     def SetSpeed(self,speed):
+        if speed>100:speed=100
         self.__Speed = speed
         self.p.ChangeDutyCycle(speed)
     def GetSpeed(self):
@@ -87,9 +88,10 @@ class Motor:
 if __name__=='__main__':
     wheel = SteeringWheel()
     wheel.Steer_duty(7.75)
-    motor = Motor(16,18,22,starting_speed=50)
-    motor.forward()
-    sleep(3)
+    sleep(1)
+    #motor = Motor(16,18,22,starting_speed=50)
+    #motor.forward()
+    #sleep(3)
 
         
     
