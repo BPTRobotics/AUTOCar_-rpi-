@@ -3,12 +3,13 @@ from gpiozero import DistanceSensor
 from time import sleep
 
 # Initialize ultrasonic sensor
-sensor = DistanceSensor(trigger=18, echo=24)
-
+sensor1 = DistanceSensor(trigger=21, echo=20)
+sensor2 = DistanceSensor(trigger=26, echo=19)
+sensor3 = DistanceSensor(trigger=16, echo=12)
+sensors = [sensor1,sensor2,sensor3]
 while True:
-	# Wait 2 seconds
-	sleep(.5)
-	
+	sleep(.1)
 	# Get the distance in metres
-	distance = sensor.distance
-	print(f"Distance: {(distance*100):.3}cm ",flush=True,end='\r')
+	for x in range(len(sensors)):
+		print(f"s{x+1}: {sensors[x].distance*100:.2f}cm")
+	print('\n')
