@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 
+os.environ['OPENCV_VIDEOIO_PRIORITY_MSMF'] = 0
+
 def nothing(x):
     pass
 

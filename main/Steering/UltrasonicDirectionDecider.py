@@ -44,13 +44,13 @@ class UltrasonicDirectionDecider:
             x = -1
             y=.75
        
-        if min_sensor.distance < .25:
-            if(min_sensor.distance<.125):
+        if min_sensor.distance < .2:
+            if(min_sensor.distance<.07):
                 y = -.5
                 x*=-1
             else:
                 y = .75
-                x *= 3
+                x *= 2.5
 
         elif self.middle_sensor.distance == 1:
            x,y=0,1.5

@@ -8,7 +8,7 @@ from FPSCounter import FPSCounter
 
 from Detectors.ColorDetector import ColorDetector
 
-HEADLESS = True
+HEADLESS = False
 if HEADLESS:
     cv2.imshow = lambda *args: None
     cv2.putText = lambda *args: None#print(args[1])
@@ -19,12 +19,7 @@ class DecisionMaker:
     def __init__(self,onThread=True):
         
         # Ensure cleanup on exit
-        @atexit.register
-        def cleanup():
-            if self.cap:
-                self.cap.release()
-            cv2.destroyAllWindows()
-            print("CLEANED UP!")
+        
         self.angle = 90
         self.cap = None
         self.NearestID = 0
@@ -36,7 +31,8 @@ class DecisionMaker:
         self.TOO_FAR_THRESHOLD = 3000
         self.fps_counter = None
         if onThread:
-            Thread(target=self.Detecting,daemon=True).start()
+            self.thread = Thread(target=self.Detecting,daemon=True)
+            self.thread.start()
         else:
             self.Detecting()
 
@@ -51,12 +47,17 @@ class DecisionMaker:
         
         # Start video capture
         self.cap = cv2.VideoCapture(0)
-
+        @atexit.register
+        def cleanup():
+            if self.cap:
+                self.cap.release()
+            cv2.destroyAllWindows()
+            print("CLEANED UP!")
         if not self.cap.isOpened():
             print("Cannot open camera")
             exit()
-        self.RedCubeDetector = ColorDetector(np.array([118, 53, 109]), np.array([179, 255, 245]))
-        self.GreenCubeDetector = ColorDetector(np.array([69, 76, 25]), np.array([94, 255, 187]))
+        self.RedCubeDetector = ColorDetector(np.array([155, 98, 65]), np.array([179, 211, 138]))
+        self.GreenCubeDetector = ColorDetector(np.array([75, 91, 13]), np.array([106, 233, 62]))
 
         while True:
             #print(self.angle)
@@ -65,8 +66,7 @@ class DecisionMaker:
             ret, frame = self.cap.read()
             if not ret:
                 print('NO CAMERA PICTURE')
-                sleep(1)
-                continue
+                break
 
             
             # Detect cubes
@@ -110,12 +110,11 @@ class DecisionMaker:
                 if not HEADLESS: cv2.putText(frame, NO_DETECTION_TEXT, (0, 30), cv2.FONT_HERSHEY_SIMPLEX, .5, YELLOW_COLOR, 3)
             
             if not HEADLESS: cv2.putText(frame,f"FPS: {self.fps_counter.fps:.2f}",(0,frame.shape[0]),cv2.FONT_HERSHEY_COMPLEX,1,YELLOW_COLOR,3)
-
+            
             if not HEADLESS: cv2.imshow("FRAME", frame)
+            key = cv2.waitKey(1)
+            if key & 0xFF == ord('q'):
+                break
 
 if __name__=='__main__':
-    dm = DecisionMaker()
-    dm.TOO_FAR_THRESHOLD = 3000
-    while True:
-        print(f"ANGLE: {dm.angle} DetectionID: {dm.NearestID} Distance: {dm.NearestObjectDistance}")
-        sleep(.1)
+    dm = DecisionMaker(False)

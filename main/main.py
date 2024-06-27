@@ -1,6 +1,8 @@
 from time import sleep
 import Steering.Steering
 import Steering.UltrasonicDirectionDecider
+from ColorSensor import *
+import os
 
 from gpiozero import DistanceSensor
 
@@ -9,7 +11,7 @@ import CameraThread
 
 
 SPEED = 100
-
+os.environ['OPENCV_VIDEOIO_PRIORITY_MSMF'] = '0'
 
 
 
@@ -20,10 +22,12 @@ def main():
     UltrasonicDirectionDecider = Steering.UltrasonicDirectionDecider.UltrasonicDirectionDecider(DistanceSensor(trigger=21, echo=20),DistanceSensor(trigger=26, echo=19),DistanceSensor(trigger=16, echo=12))
 
     Motor = Steering.Steering.Motor(16,18,22,starting_speed = SPEED)
-
+    ColorSensor = ColorSensor(60)
     DecisionMaker = CameraThread.DecisionMaker()
+    DecisionMaker.TOO_FAR_THRESHOLD = 3000
+    sleep(3)
     #INIT CAMERA    
-    while True:
+    while DecisionMaker.thread.is_alive():
 
         direction_x,direction_y = UltrasonicDirectionDecider.getDirection()
         #UltrasonicDirectionDecider.printAllSensorValues()
@@ -32,12 +36,13 @@ def main():
         #print(f"SPEED: {UltrasonicDirectionDecider.speedMultiplier*100*2}")
         if direction_y != -1 and DecisionMaker.NearestID!=0:
             if DecisionMaker.NearestID == DecisionMaker.RED_ID:
-                camera_angle = 180-(DecisionMaker.angle*90)
+                angle = 180-(DecisionMaker.angle*90)
             elif DecisionMaker.NearestID == DecisionMaker.GREEN_ID:
-                camera_angle = DecisionMaker.angle*102
-            SteeringWheel.Steer(camera_angle)
+                angle = DecisionMaker.angle*102
+            SteeringWheel.Steer(angle)
+            direction_y *= .75
             
-            print(f"CAMERA Direction: {DecisionMaker.angle:.2f} ANGLE: {camera_angle:.2f} DISTANCE: {DecisionMaker.NearestObjectDistance:.2f} ID: {DecisionMaker.NearestID} FPS: {DecisionMaker.fps_counter.fps:.2f}")
+            print(f"CAMERA Direction: {DecisionMaker.angle:.2f} ANGLE: {angle:.2f} DISTANCE: {DecisionMaker.NearestObjectDistance:.2f} ID: {DecisionMaker.NearestID} FPS: {DecisionMaker.fps_counter.fps:.2f}")
         else:
             angle = 102+direction_x*17.5
             SteeringWheel.Steer(angle)
