@@ -21,10 +21,12 @@ class DecisionMaker:
         # Ensure cleanup on exit
         @atexit.register
         def cleanup():
-            self.cap.release()
+            if self.cap:
+                self.cap.release()
             cv2.destroyAllWindows()
             print("CLEANED UP!")
         self.angle = 90
+        self.cap = None
         self.NearestID = 0
         #self.Detecting()
         Thread(target=self.Detecting,daemon=True).start()
@@ -48,11 +50,11 @@ class DecisionMaker:
         if not self.cap.isOpened():
             print("Cannot open camera")
             exit()
-        self.RedCubeDetector = ColorDetector(np.array([162, 152, 43]), np.array([179, 247, 111]))
+        self.RedCubeDetector = ColorDetector(np.array([115, 97, 63]), np.array([179, 255, 168]))
         self.GreenCubeDetector = ColorDetector(np.array([0, 0, 0]), np.array([0, 0, 0]))
 
         while True:
-            print(self.angle)
+            #print(self.angle)
             self.fps_counter.update()
             ret, frame = self.cap.read()
             if not ret:

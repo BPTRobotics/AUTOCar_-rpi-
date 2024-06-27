@@ -14,7 +14,18 @@ class UltrasonicDirectionDecider:
 
         self.isBack = False
         self.speedMultiplier = 1
-
+        
+    
+    def printAllSensorValues(self):
+        for x in range(len(self.sensors)):
+            if x==0:
+                sensor="LEFT_SENSOR"
+            elif x==1:
+                sensor="MIDDLE_SENSOR"
+            elif x==2:
+                sensor=="RIGHT_SENSOR"
+            print(f"{sensor}: {self.sensors[x].distance*100:.2f}cm")
+    
     def getDirection(self) -> (int, int):
 
         # Determine which sensor detects the furthest distance
@@ -22,28 +33,29 @@ class UltrasonicDirectionDecider:
         min_sensor = min(self.sensors, key=lambda sensor: sensor.distance)
         self.speedMultiplier = min_sensor.distance
         x,y=0,1
-        if min_sensor.distance < .1:
-            if min_sensor == self.left_sensor:
-                x = -1
-            elif min_sensor == self.middle_sensor:
-                x = 0
-            elif min_sensor == self.right_sensor:
-                x = 1
-            y = -1
-        else:
-            if max_sensor == self.left_sensor:
-                x = -1
-            elif max_sensor == self.middle_sensor:
-                x = 0
-            elif max_sensor == self.right_sensor:
-                x = 1
+    
+        if max_sensor == self.left_sensor:
+            x = 1
+            y=.75
+        elif max_sensor == self.middle_sensor:
+            x = 0
+            y=1
+        elif max_sensor == self.right_sensor:
+            x = -1
+            y=.75
+       
+        if min_sensor.distance < .25:
+            if(min_sensor.distance<.125):
+                y = -.5
+                x*=-1
+            else:
+                y = .75
+                x *= 3
 
-        if self.middle_sensor != max_sensor and (max_sensor.distance - self.middle_sensor.distance) > 0.3:
-            x*=2
+        elif self.middle_sensor.distance == 1:
+           x,y=0,1.5
         
-        #elif self.middle_sensor.distance == 1:
-        #    x,y=0,1
+        if max_sensor.distance-self.middle_sensor.distance>.5 :
+            x*=2
+
         return x,y
-    def printAllSensorValues(self):
-        for x in range(len(self.sensors)):
-            print(f"sensor{x}: {self.sensors[x].distance*100:.2f}cm")

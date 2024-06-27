@@ -3,7 +3,7 @@ import atexit
 from time import sleep
 
 class SteeringWheel:
-    def __init__(self,PORT=11,MAX_degree=150,MIN_degree=30):
+    def __init__(self,PORT=11,MAX_degree=170,MIN_degree=0):
 
         @atexit.register
         def cleanup():
@@ -42,7 +42,7 @@ class SteeringWheel:
             elif degrees < self.MIN_degree  : degrees = self.MIN_degree
         
         self.Direction = degrees
-        #self.Steer_duty(SteeringWheel.remap(degrees))
+        self.Steer_duty(SteeringWheel.remap(degrees))
 
 class Motor:
     def __init__(self,in1:int,in2:int,en:int,starting_speed = 0):
@@ -79,16 +79,25 @@ class Motor:
 
     def SetSpeed(self,speed):
         if speed>100:speed=100
+        elif speed<0:speed = 0
         self.__Speed = speed
         self.p.ChangeDutyCycle(speed)
     def GetSpeed(self):
         return self.__Speed
     
 
+def TEST():
+    motor = Motor(16,18,22,starting_speed=35)
+    while True:
+        motor.forward()
 if __name__=='__main__':
     wheel = SteeringWheel()
-    wheel.Steer_duty(7.75)
-    sleep(1)
+    from threading import Thread
+    Thread(target=TEST).start()
+    while True:
+        wheel.Steer(int(input('Steerng direction: ')))
+    
+
     #motor = Motor(16,18,22,starting_speed=50)
     #motor.forward()
     #sleep(3)

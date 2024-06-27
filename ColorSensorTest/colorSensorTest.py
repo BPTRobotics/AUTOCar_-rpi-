@@ -15,7 +15,6 @@ def main():
         sleep(.5)
         main()
 
-while True:
-    main()
-    sleep(.1)
+main()
+
 

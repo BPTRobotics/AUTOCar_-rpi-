@@ -1,6 +1,7 @@
 # Getting the libraries we need
 from gpiozero import DistanceSensor
 import sys
+from time import sleep
 sys.path.append('/home/RPI/Documents/main/Steering')
 from UltrasonicDirectionDecider import *
 from Steering import *
@@ -10,19 +11,27 @@ s1 = DistanceSensor(trigger=21, echo=20)
 s2 = DistanceSensor(trigger=26, echo=19)
 s3 = DistanceSensor(trigger=16, echo=12)
 
-motor = Motor(16,18,22,starting_speed=50)
+motor = Motor(16,18,22,starting_speed=80)
 wheel = SteeringWheel()
 UltrasonicDirectionDecider = UltrasonicDirectionDecider(s1,s2,s3)
 while True:
+    speed = UltrasonicDirectionDecider.speedMultiplier*150
+    if speed<40:speed = 40
+    motor.SetSpeed(speed)
+    
+    UltrasonicDirectionDecider.printAllSensorValues()
     x,y = UltrasonicDirectionDecider.getDirection()
-    duty_angle = 7.75+1*x
-    wheel.Steer_duty(duty_angle)
+
+    angle = 90+-25*x
+    wheel.Steer(angle)
     
     if y == 1: motor.forward()
     elif y == -1: motor.backward()
     elif y == 0: motor.stop()
-    print(x,y,duty_angle)
-    UltrasonicDirectionDecider.printAllSensorValues()
+    print(f"X: {x} Y: {y} angle: {angle} speed: {speed}")
+
+
+    sleep(.1)
 '''
 sensors = [s1,s2,s3]
 wheel = SteeringWheel(11,True)
