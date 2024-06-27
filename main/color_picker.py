@@ -27,7 +27,7 @@ while True:
     # Read frame from the camera
     ret, frame = cap.read()
     if not ret:
-        break
+       print("NO CAMERA"); break
 
     # Resize the frame
     frame = cv2.resize(frame, (640, 480))

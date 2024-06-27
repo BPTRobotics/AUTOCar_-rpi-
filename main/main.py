@@ -8,7 +8,7 @@ from gpiozero import DistanceSensor
 import CameraThread
 
 
-SPEED = 0
+SPEED = 100
 
 
 
@@ -22,25 +22,29 @@ def main():
     Motor = Steering.Steering.Motor(16,18,22,starting_speed = SPEED)
 
     DecisionMaker = CameraThread.DecisionMaker()
-    
     #INIT CAMERA    
     while True:
 
-        direction_x,direction_y = 0,0#UltrasonicDirectionDecider.getDirection()
+        direction_x,direction_y = UltrasonicDirectionDecider.getDirection()
         #UltrasonicDirectionDecider.printAllSensorValues()
         #print(direction_x,direction_y)
         #   Motor.SetSpeed(0)
         #print(f"SPEED: {UltrasonicDirectionDecider.speedMultiplier*100*2}")
         if direction_y != -1 and DecisionMaker.NearestID!=0:
-            #SteeringWheel.Steer(DecisionMaker.angle)
-            print(f"CAMERA Direction: {DecisionMaker.angle}")
+            if DecisionMaker.NearestID == DecisionMaker.RED_ID:
+                camera_angle = 180-(DecisionMaker.angle*90)
+            elif DecisionMaker.NearestID == DecisionMaker.GREEN_ID:
+                camera_angle = DecisionMaker.angle*102
+            SteeringWheel.Steer(camera_angle)
+            
+            print(f"CAMERA Direction: {DecisionMaker.angle:.2f} ANGLE: {camera_angle:.2f} DISTANCE: {DecisionMaker.NearestObjectDistance:.2f} ID: {DecisionMaker.NearestID} FPS: {DecisionMaker.fps_counter.fps:.2f}")
         else:
             angle = 102+direction_x*17.5
             SteeringWheel.Steer(angle)
             #print(f"Direction: {angle} X: {direction_x}")
             #print("GOING BY US")
         #print(DecisionMaker.NearestID)
-        
+
         Motor.SetSpeed(SPEED*abs(direction_y))
         if direction_y > 0:
             Motor.forward()
