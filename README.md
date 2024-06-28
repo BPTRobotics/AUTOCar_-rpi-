@@ -1,155 +1,137 @@
-# Autonóm Jármű Fejlesztési Projekt a WRO Future Engineers Versenyre
+Autonomous Vehicle Development Project for the WRO Future Engineers Competition
 
-**Projekt időtartama:** 2024. április 1. - 2024. május 31.
+Project duration: April 1, 2024 - May 31, 2024
 
-**Projekt címe:** Autonóm jármű fejlesztése a WRO Future Engineers versenyre
+Team members :
+- Szakács - Békési Boldizsár ( Team Leader )
+- Péter Márkus ( Hardware mechanic )
 
-**Csapattagok:**
-- **Szakács - Békési Boldizsár** (Csapatvezető)
-- **Márkus Péter** (Co-vezető)
 
----
+Week 1 (April 1 - April 7)
+Tasks :
+- Determining the goals of the project and the tasks of the team members in the context of a kick-off meeting.
+- Setting up project management tools (GitHub).
+- Initial research on WRO competition rules and requirements.
+- Preliminary planning of the hardware and software architecture of the vehicle.
+- Ordering necessary hardware components (sensors, RPI, microcontrollers).
 
-## 1. hét (április 1 - április 7)
+Challenges :
+- Understanding the specific requirements and limitations of the competition.
 
-**Feladatok:**
-- A projekt céljainak és a csapattagok feladatainak meghatározása egy indító megbeszélés keretében.
-- Projektmenedzsment eszközök beállítása (Jira, GitHub, Slack).
-- Kezdeti kutatás a WRO verseny szabályairól és követelményeiről.
-- A jármű hardver- és szoftverarchitektúrájának előzetes tervezése.
-- Szükséges hardverkomponensek (szenzorok, aktuátorok, mikrokontrollerek) megrendelése.
+Results :
+- Preparation of a project plan with milestones and deliverables.
+- Initial hardware design sketch.
 
-**Kihívások:**
-- A verseny specifikus követelményeinek és korlátainak megértése.
 
-**Eredmények:**
-- Projektterv elkészítése mérföldkövekkel és szállítmányokkal.
-- Kezdeti hardverterv vázlata.
+Week 2 (April 8 - April 14)
+Tasks:
+- Arrival and initial testing of hardware components.
+- Development environment setup (Raspberry Pi, OpenCV, TensorFlow -> YOLO).
+- Beginning of the implementation of basic control algorithms.
 
----
+Challenges:
+- Initial hardware integration issues (sensor compatibility).
 
-## 2. hét (április 8 - április 14)
+Results:
+- Successful testing of some hardware components.
+- Initial development environment setup.
 
-**Feladatok:**
-- Hardverkomponensek érkezése és kezdeti tesztelése.
-- Fejlesztési környezet beállítása (Raspberry Pi, OpenCV, TensorFlow).
-- Alapvető vezérlő algoritmusok megvalósításának megkezdése.
-- Felhasználói felület tervezése a monitorozáshoz.
 
-**Kihívások:**
-- Kezdeti hardverintegrációs problémák (szenzor kompatibilitás).
+Week 3 (April 15 - April 21)
+Tasks:
+- Development of basic computer vision algorithms for lane tracking.
+- Camera integration with Raspberry Pi and real-time image processing testing.
+- Integration of sensors with the main control unit.
+- Development of a simulation environment for testing algorithms.
 
-**Eredmények:**
-- Egyes hardverkomponensek sikeres tesztelése.
-- Fejlesztési környezet kezdeti beállítása.
+Challenges:
+- Optimization of real-time image processing on the Raspberry Pi.
 
----
+Results:
+- A basic lane tracking algorithm works in the simulation.
+- Successful integration of sensors with initial data reading.
 
-## 3. hét (április 15 - április 21)
 
-**Feladatok:**
-- Alapvető számítógépes látás algoritmusok fejlesztése a sávkövetéshez.
-- Kamera integrálása a Raspberry Pi-vel és valós idejű képfeldolgozás tesztelése.
-- Szenzorok integrálása a fő vezérlőegységgel.
-- Szimulációs környezet fejlesztése az algoritmusok tesztelésére.
 
-**Kihívások:**
-- Valós idejű képfeldolgozás optimalizálása a Raspberry Pi-n.
+Week 4 (April 22 - April 28)
+Tasks:
+- Development of computer vision algorithms (object recognition, traffic sign recognition).
+- Development of basic route planning and obstacle avoidance algorithms.
+- Still testing in the simulation environment.
 
-**Eredmények:**
-- Alapvető sávkövetési algoritmus működik a szimulációban.
-- Szenzorok sikeres integrációja kezdeti adatolvasással.
+Challenges:
+- Ensuring the reliability of object recognition under different light conditions.
 
----
+Results:
+- Improved accuracy in lane tracking and object detection.
+- Introduction of initial route planning and obstacle avoidance algorithms.
 
-## 4. hét (április 22 - április 28)
 
-**Feladatok:**
-- Számítógépes látás algoritmusok fejlesztése (objektumfelismerés, közlekedési jelzések felismerése).
-- Alapvető útvonaltervezési és akadálykerülési algoritmusok fejlesztése.
-- Továbbra is a szimulációs környezetben tesztelés.
+Week 5 (April 29 - May 5)
+Results:
+- There were no results, both of us were too busy with our school studies.
 
-**Kihívások:**
-- Az objektumfelismerés megbízhatóságának biztosítása különböző fényviszonyok mellett.
 
-**Eredmények:**
-- Javított pontosság a sávkövetés és objektumfelismerés terén.
-- Kezdeti útvonaltervezési és akadálykerülési algoritmusok bevezetése.
+Week 6 (May 6 - May 12)
+Tasks:
+- Expansion of testing environments under real conditions (different environments, obstacles).
+- Introduction of safety protocols and emergency stop systems.
+- Development of a user-friendly dashboard for real-time monitoring and control.
+- Integration testing of all modules.
 
----
+Challenges:
+- Handling extreme cases in real conditions (unexpected obstacles, changing light conditions).
 
-## 5. hét (április 29 - május 5)
+Results:
+- Improving stability and reliability in control systems.
+- Discovery of a problem, the engine controller (L298N) may overheat, it turned out that it cannot be used for a long time.
 
-**Eredmények:**
-- Nem volt elért eredmény, mind a kettőnk túl elfoglalt volt iskolai tanulmányainkkal.
 
-## 6. hét (május 6 - május 12)
+Week 7 (May 13 - May 19)
+Tasks:
+- Focus on performance optimization (processing speed, memory usage).
+- Extensive testing and validation of the entire system.
+- Preparation of documentation and user manuals.
+- Preparation of final presentation for the competition.
 
-**Feladatok:**
-- Valós körülmények közötti tesztelési környezetek bővítése (különböző környezetek, akadályok).
-- Biztonsági protokollok és vészleállító rendszerek bevezetése.
-- Felhasználóbarát irányítópult fejlesztése a valós idejű monitorozás és vezérlés érdekében.
-- Minden modul integrációs tesztelése.
+Challenges:
+- Balance performance against hardware limitations.
 
-**Kihívások:**
-- Szélsőséges esetek kezelése valós körülmények között (váratlan akadályok, változó fényviszonyok).
+Results:
+- Code optimization for better performance.
+- Extensive testing with positive results.
 
-**Eredmények:**
-- Stabilitás és megbízhatóság javítása a vezérlő rendszerekben.
-- Funkcionális irányítópult elkészítése a jármű állapotának monitorozására.
 
----
+Week 8 (May 20 - May 26)
+Tasks:
+- Finalization of all software and hardware components.
+- Full system testing under competitive conditions.
+- Collect and analyze test data to ensure reliability and performance.
+- Preparation of backup plans and troubleshooting guides.
 
-## 7. hét (május 13 - május 19)
+Challenges:
+- Ensuring the smooth operation of all components under competitive conditions.
 
-**Feladatok:**
-- Teljesítményoptimalizálásra összpontosítás (feldolgozási sebesség, memóriahasználat).
-- Kiterjedt tesztelés és validálás a teljes rendszeren.
-- Dokumentáció és felhasználói kézikönyvek elkészítése.
-- Végső prezentáció előkészítése a versenyre.
+Results:
+- Successful full testing in different environments.
+- Final system ready for competition.
 
-**Kihívások:**
-- Teljesítmény kiegyensúlyozása a hardver korlátaival.
 
-**Eredmények:**
-- Kód optimalizálása jobb teljesítmény érdekében.
-- Kiterjedt tesztelés pozitív eredményekkel.
+Week 9 (May 27 - May 31)
+Tasks:
+- Final preparations for the competition.
+- Rehearsal of presentations and demonstrations.
+- Packing and organizing all materials and tools for the competition.
+- Final team meeting to ensure readiness and address last minute issues.
 
----
+Challenges:
+- Managing stress and ensuring full preparation for the day of the competition.
 
-## 8. hét (május 20 - május 26)
+Results:
+- The team is well prepared and confident for the WRO Future Engineers competition.
+- All systems tested and ready for deployment.
 
-**Feladatok:**
-- Minden szoftver- és hardverkomponens véglegesítése.
-- Teljes rendszer tesztelése versenyszerű körülmények között.
-- Tesztadatok gyűjtése és elemzése a megbízhatóság és teljesítmény biztosítása érdekében.
-- Tartalék tervek és hibaelhárítási útmutatók előkészítése.
 
-**Kihívások:**
-- Minden komponens zökkenőmentes működésének biztosítása versenyfeltételek mellett.
 
-**Eredmények:**
-- Sikeres teljes tesztelés különböző környezetekben.
-- Versenyre kész végleges rendszer.
-
----
-
-## 9. hét (május 27 - május 31)
-
-**Feladatok:**
-- Végső előkészületek a versenyre.
-- Prezentációk és bemutatók próbája.
-- Minden anyag és eszköz csomagolása és rendszerezése a versenyre.
-- Végső csapatértekezlet a készenlét biztosítása és az utolsó pillanatban felmerülő problémák kezelése érdekében.
-
-**Kihívások:**
-- Stressz kezelése és a verseny napjára való teljes felkészülés biztosítása.
-
-**Eredmények:**
-- A csapat jól felkészült és magabiztos a WRO Future Engineers versenyre.
-- Minden rendszer tesztelve és készen áll a bevetésre.
-
----
-
-**Összegzés:**
-Az elmúlt két hónap során csapatunk sikeresen tervezte, fejlesztette és tesztelte az autonóm járművet a WRO Future Engineers versenyre. Számos kihívással szembesültünk, mint például a hardverintegráció, valós idejű feldolgozás és vezérlőrendszerek. A végleges rendszerünk megbízható teljesítményt mutatott különböző környezetekben és magabiztosan várjuk a versenyt. Ez a projekt értékes tanulási élmény volt, amely bemutatta, hogy hogyan tudunk hatékonyan és együttműködve dolgozni szoros határ
+Summary:
+Over the past two months, our team has successfully designed, developed and tested the autonomous vehicle for the WRO Future Engineers versFeny. We faced many challenges such as hardware integration, real-time processing and control systems. Our final system has shown reliable performance in various environments and we confidently await the competition. This project was a valuable learning experience that demonstrated how we can work efficiently and collaboratively in a tight border.
